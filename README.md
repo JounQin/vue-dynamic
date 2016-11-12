@@ -69,7 +69,7 @@ There is a deadly simple example:
 
 As you see, the value of `methods` object is a string (or array, them will be applied to `Function` constructor) what means you can store it in your database! So that it is possible to define customer defined page component separately and link them together at once!
 
-It's very useful to build a html5 page like [eqxiu.com](http://http://www.eqxiu.com/).
+It's very useful to build a html5 page like [eqxiu.com](http://www.eqxiu.com/).
 
 __*And nested components can be used! Here is a example:*__
 
