@@ -13,6 +13,10 @@
     "url": "https://github.com/JounQin/vue-dynamic",
     "type": "git"
   },
+  "bugs": {
+    "url": "https://github.com/JounQin/vue-dynamic/issues",
+    "email": "admin@1stg.me"
+  },
   "author": "JounQin <admin@1stg.me>",
   "license": "MIT",
   "scripts": {
