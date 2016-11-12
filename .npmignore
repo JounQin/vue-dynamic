@@ -9,3 +9,11 @@ logs
 *.log
 npm-debug.log*
 node_modules
+
+webpack
+
+.babelrc
+.eslint*
+.travis*
+.yarnrc
+yarn.lock
