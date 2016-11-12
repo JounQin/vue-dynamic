@@ -1,7 +1,13 @@
 {
   "name": "vue-dynamic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Load stringified or normal Vue components dynamically!",
+  "keywords": [
+    "vue",
+    "dynamic",
+    "component",
+    "dynamic components"
+  ],
   "main": "index.js",
   "repository": {
     "url": "https://github.com/JounQin/vue-dynamic",
