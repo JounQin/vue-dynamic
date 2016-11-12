@@ -1,6 +1,6 @@
 /*!
  * vue-dynamic -- Load stringified or normal Vue components dynamically!
- * Version 0.0.1
+ * Version 0.0.2
  * 
  * Copyright (C) 2016 JounQin <admin@1stg.me>
  * Released under the MIT license

@@ -1,6 +1,6 @@
 /*!
  * vue-dynamic -- Load stringified or normal Vue components dynamically!
- * Version 0.0.1
+ * Version 0.0.2
  * 
  * Copyright (C) 2016 JounQin <admin@1stg.me>
  * Released under the MIT license
@@ -521,7 +521,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var installed = false;
 
 var VueDynamic = {
-  install: function install(Vue, options) {
+  install: function install(Vue) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
     if (installed) return;
     installed = true;
     Vue.component(options.name || 'Dynamic', _dynamic2.default);
