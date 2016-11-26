@@ -1,6 +1,6 @@
 /*!
  * vue-dynamic -- Load stringified or normal Vue components dynamically!
- * Version 0.0.2
+ * Version 0.0.3
  * 
  * Copyright (C) 2016 JounQin <admin@1stg.me>
  * Released under the MIT license
@@ -9,14 +9,14 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
+		module.exports = factory(require("Vue"));
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
+		define(["Vue"], factory);
 	else if(typeof exports === 'object')
-		exports["VueDynamic"] = factory();
+		exports["VueDynamic"] = factory(require("Vue"));
 	else
-		root["VueDynamic"] = factory();
-})(this, function() {
+		root["VueDynamic"] = factory(root["Vue"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -80,28 +80,38 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 "use strict";
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var modulesContext = __webpack_require__(5);
+var trueType = function trueType(value) {
+  return [].slice.call({}.toString.call(value), 8, -1).join('');
+};
 
-exports.default = modulesContext.keys().reduce(function (modules, key) {
-  return Object.assign(modules, modulesContext(key));
-}, {});
-module.exports = exports['default'];
+var trueTypeFunc = function trueTypeFunc(type) {
+  return function (value) {
+    return type === trueType(value);
+  };
+};
+
+['Array', 'Function', 'Object'].forEach(function (type) {
+  return module.exports['is' + type] = trueTypeFunc(type);
+});
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -112,6 +122,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _vue = __webpack_require__(1);
 
 var _utils = __webpack_require__(0);
 
@@ -148,10 +160,10 @@ var objCompsToArr = function objCompsToArr(objComponents) {
 };
 
 var invalidMsg = function invalidMsg(msg) {
-  return (0, _utils.warn)('invalid ' + msg + ' will be ignored!');
+  return _vue.util.warn('invalid ' + msg + ' will be ignored!');
 };
 var nonMsg = function nonMsg(msg) {
-  return (0, _utils.warn)('no ' + msg + ' found thus it will be ignored!');
+  return _vue.util.warn('no ' + msg + ' found thus it will be ignored!');
 };
 
 var buildComponent = function buildComponent(comps, notFirst) {
@@ -267,242 +279,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-"use strict";
-'use strict';
-
-var process = module.exports = {};
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout() {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-})();
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        return setTimeout(fun, 0);
-    }
-
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        return cachedSetTimeout(fun, 0);
-    } catch (e) {
-        try {
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch (e) {
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        return clearTimeout(marker);
-    }
-
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        return cachedClearTimeout(marker);
-    } catch (e) {
-        try {
-            return cachedClearTimeout.call(null, marker);
-        } catch (e) {
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while (len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = '';
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () {
-    return '/';
-};
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function () {
-    return 0;
-};
-
-/***/ },
 /* 3 */
-/***/ function(module, exports) {
-
-"use strict";
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var trueType = exports.trueType = function trueType(value) {
-  return [].slice.call({}.toString.call(value), 8, -1).join('');
-};
-
-var trueTypeFunc = exports.trueTypeFunc = function trueTypeFunc(type) {
-  return function (value) {
-    return type === trueType(value);
-  };
-};
-
-['Arguments', 'Array', 'Boolean', 'Date', 'Error', 'Function', 'Map', 'Null', 'Object', 'RegExp', 'Set', 'String', 'Symbol', 'Undefined'].forEach(function (type) {
-  return module.exports['is' + type] = trueTypeFunc(type);
-});
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-var EMPTY_FUNC = function EMPTY_FUNC() {};
-
-['error', 'log', 'warn'].forEach(function (log) {
-  return module.exports[log] = process.env.NODE_ENV === 'development' ? console[log] : EMPTY_FUNC;
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-var map = {
-	"./base.js": 3,
-	"./index.js": 0,
-	"./log.js": 4
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 5;
-
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -512,7 +289,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _dynamic = __webpack_require__(1);
+var _dynamic = __webpack_require__(2);
 
 var _dynamic2 = _interopRequireDefault(_dynamic);
 
