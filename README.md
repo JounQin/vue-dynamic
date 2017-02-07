@@ -1,4 +1,6 @@
 # vue-dynamic
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/JounQin/vue-dynamic.svg)](https://greenkeeper.io/)
 Load stringified or normal Vue components dynamically!
 
 ## Usage
