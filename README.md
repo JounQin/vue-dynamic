@@ -1,7 +1,12 @@
 # vue-dynamic
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/JounQin/vue-dynamic.svg)](https://greenkeeper.io/)
+
 Load stringified or normal Vue components dynamically!
+
+## Notice
+
+This module is just a simple wrapper of Vue `component`, and you should only use it to use stringified static components.
 
 ## Usage
 
