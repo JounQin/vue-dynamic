@@ -1,3 +1,5 @@
+import path from 'path'
+
 import webpack from 'webpack'
 import pkg from '../package.json'
 
@@ -30,12 +32,12 @@ export default {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel'
+        loader: 'babel-loader'
       }
     ]
   },
   output: {
-    path: 'dist',
+    path: path.resolve(__dirname, '../dist'),
     filename: `[name]${isProduction ? '.min' : ''}.js`,
     libraryTarget: 'umd',
     library: 'VueDynamic'

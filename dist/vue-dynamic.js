@@ -1,6 +1,6 @@
 /*!
  * vue-dynamic -- Load stringified or normal Vue components dynamically!
- * Version 0.0.3
+ * Version 0.0.4
  * 
  * Copyright (C) 2016 JounQin <admin@1stg.me>
  * Released under the MIT license
@@ -9,61 +9,63 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("Vue"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(["Vue"], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
-		exports["VueDynamic"] = factory(require("Vue"));
+		exports["VueDynamic"] = factory();
 	else
-		root["VueDynamic"] = factory(root["Vue"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+		root["VueDynamic"] = factory();
+})(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// identity function for calling harmory imports with the correct context
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
-/******/ 	// define getter function for harmory exports
+/******/
+/******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -72,50 +74,23 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-'use strict';
 
-var trueType = function trueType(value) {
-  return [].slice.call({}.toString.call(value), 8, -1).join('');
-};
-
-var trueTypeFunc = function trueTypeFunc(type) {
-  return function (value) {
-    return type === trueType(value);
-  };
-};
-
-['Array', 'Function', 'Object'].forEach(function (type) {
-  return module.exports['is' + type] = trueTypeFunc(type);
-});
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -123,9 +98,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _vue = __webpack_require__(1);
-
-var _utils = __webpack_require__(0);
+var _utils = __webpack_require__(1);
 
 var objCompsToArr = function objCompsToArr(objComponents) {
   var components = [];
@@ -160,10 +133,10 @@ var objCompsToArr = function objCompsToArr(objComponents) {
 };
 
 var invalidMsg = function invalidMsg(msg) {
-  return _vue.util.warn('invalid ' + msg + ' will be ignored!');
+  return (0, _utils.warn)('invalid ' + msg + ' will be ignored!');
 };
 var nonMsg = function nonMsg(msg) {
-  return _vue.util.warn('no ' + msg + ' found thus it will be ignored!');
+  return (0, _utils.warn)('no ' + msg + ' found thus it will be ignored!');
 };
 
 var buildComponent = function buildComponent(comps, notFirst) {
@@ -278,18 +251,45 @@ exports.default = {
 };
 module.exports = exports['default'];
 
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-'use strict';
+
+
+var trueType = function trueType(value) {
+  return [].slice.call({}.toString.call(value), 8, -1).join('');
+};
+
+var trueTypeFunc = function trueTypeFunc(type) {
+  return function (value) {
+    return type === trueType(value);
+  };
+};
+
+['Array', 'Function', 'Object'].forEach(function (type) {
+  return module.exports['is' + type] = trueTypeFunc(type);
+});
+
+module.exports.warn = function (msg) {
+  if (true) {
+    typeof console === 'function' && console.error(msg);
+  }
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _dynamic = __webpack_require__(2);
+var _dynamic = __webpack_require__(0);
 
 var _dynamic2 = _interopRequireDefault(_dynamic);
 
@@ -312,7 +312,6 @@ window.Vue && window.Vue.use(VueDynamic);
 exports.default = VueDynamic;
 module.exports = exports['default'];
 
-/***/ }
-/******/ ])
+/***/ })
+/******/ ]);
 });
-;
