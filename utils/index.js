@@ -6,12 +6,12 @@
  */
 const trueType = value => [].slice.call({}.toString.call(value), 8, -1).join('')
 
-const trueTypeFunc = type => value => type === trueType(value);
+const trueTypeFunc = type => value => type === trueType(value)
 
 /**
  * 一些类型判断方法, 例: utils.isArray(1)
  */
-['Array', 'Function', 'Object'].forEach(type => (module.exports[`is${type}`] = trueTypeFunc(type)))
+;['Array', 'Function', 'Object'].forEach(type => (module.exports[`is${type}`] = trueTypeFunc(type)))
 
 module.exports.warn = msg => {
   if (process.env.NODE_ENV === 'development') {
