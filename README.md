@@ -1,6 +1,9 @@
 # vue-dynamic
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/JounQin/vue-dynamic.svg)](https://greenkeeper.io/)
+[![Travis](https://img.shields.io/travis/JounQin/vue-dynamic.svg)](https://travis-ci.org/JounQin/vue-dynamic)
+[![David](https://img.shields.io/david/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic)
+[![David](https://img.shields.io/david/dev/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic?type=dev)
 
 Load stringified or normal Vue components dynamically!
 

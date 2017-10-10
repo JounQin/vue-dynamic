@@ -1,6 +1,6 @@
 {
   "name": "vue-dynamic",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Load stringified or normal Vue components dynamically!",
   "keywords": [
     "vue",
@@ -9,6 +9,12 @@
     "dynamic components"
   ],
   "main": "index.js",
+  "unpky": "dist/vue-dynamic",
+  "files": [
+    "index.js",
+    "dynamic.js",
+    "dist/*.js"
+  ],
   "repository": {
     "url": "https://github.com/JounQin/vue-dynamic",
     "type": "git"

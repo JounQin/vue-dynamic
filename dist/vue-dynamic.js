@@ -1,8 +1,8 @@
 /*!
  * vue-dynamic -- Load stringified or normal Vue components dynamically!
- * Version 0.0.4
+ * Version 0.0.5
  * 
- * Copyright (C) 2016 JounQin <admin@1stg.me>
+ * Copyright (C) 2016-present JounQin <admin@1stg.me>
  * Released under the MIT license
  * 
  * Github: https://github.com/JounQin/vue-dynamic
@@ -93,6 +93,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _utils = __webpack_require__(1);
@@ -136,6 +138,42 @@ var nonMsg = function nonMsg(msg) {
   return (0, _utils.warn)('no ' + msg + ' found thus it will be ignored!');
 };
 
+var generateField = function generateField(comp, component, type) {
+  var field = comp[type];
+  if ((0, _utils.isObject)(field)) {
+    var wrappedField = {};
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+      for (var _iterator2 = Object.entries(field)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        var _step2$value = _slicedToArray(_step2.value, 2),
+            fieldName = _step2$value[0],
+            method = _step2$value[1];
+
+        wrappedField[fieldName] = (0, _utils.isFunction)(method) ? method : Function[(0, _utils.isArray)(method) ? 'apply' : 'call'](null, method);
+      }
+    } catch (err) {
+      _didIteratorError2 = true;
+      _iteratorError2 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+          _iterator2.return();
+        }
+      } finally {
+        if (_didIteratorError2) {
+          throw _iteratorError2;
+        }
+      }
+    }
+
+    component[type] = wrappedField;
+  } else if (field) return invalidMsg(type);
+  return true;
+};
+
 var buildComponent = function buildComponent(comps, notFirst) {
   if (!comps) return;
 
@@ -148,52 +186,23 @@ var buildComponent = function buildComponent(comps, notFirst) {
   var wrapComp = {};
   var count = 0;
 
-  comps.forEach(function (_ref, index) {
-    var _ref$name = _ref.name,
-        name = _ref$name === undefined ? '_' + index : _ref$name,
-        template = _ref.template,
-        data = _ref.data,
-        methods = _ref.methods,
-        components = _ref.components;
+  comps.forEach(function (comp, index) {
+    var _comp$name = comp.name,
+        name = _comp$name === undefined ? '_' + index : _comp$name,
+        template = comp.template,
+        data = comp.data,
+        components = comp.components;
+
 
     if (!template) return nonMsg('template');
 
     wrapTemp += '<' + name + '/>';
     var component = wrapComp[name] = { template: template };
 
-    if ((0, _utils.isObject)(methods)) {
-      var wrapMethods = {};
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+    if (!generateField(comp, component, 'filters') || !generateField(comp, component, 'methods')) return;
 
-      try {
-        for (var _iterator2 = Object.entries(methods)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var _step2$value = _slicedToArray(_step2.value, 2),
-              methodName = _step2$value[0],
-              method = _step2$value[1];
-
-          wrapMethods[methodName] = (0, _utils.isFunction)(method) ? method : Function[(0, _utils.isArray)(method) ? 'apply' : 'call'](null, method);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      component.methods = wrapMethods;
-    } else if (methods) return invalidMsg('methods');
     if (data) component.data = (0, _utils.isFunction)(data) ? data : function () {
-      return data;
+      return _extends({}, data);
     };
     if (components) component.components = buildComponent(components, true);
 
@@ -263,9 +272,7 @@ var trueTypeFunc = function trueTypeFunc(type) {
   return function (value) {
     return type === trueType(value);
   };
-};
-
-['Array', 'Function', 'Object'].forEach(function (type) {
+};['Array', 'Function', 'Object'].forEach(function (type) {
   return module.exports['is' + type] = trueTypeFunc(type);
 });
 
