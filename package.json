@@ -1,6 +1,6 @@
 {
   "name": "vue-dynamic",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Load stringified or normal Vue components dynamically!",
   "keywords": [
     "vue",
@@ -9,7 +9,7 @@
     "dynamic components"
   ],
   "main": "index.js",
-  "unpky": "dist/vue-dynamic",
+  "unpkg": "dist/vue-dynamic.js",
   "files": [
     "index.js",
     "dynamic.js",
