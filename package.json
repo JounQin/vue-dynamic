@@ -48,6 +48,6 @@
     "eslint-config-1stg": "^0.0.5",
     "lodash": "^4.17.4",
     "vue": "^2.3.3",
-    "webpack": "^3.6.0"
+    "webpack": "^4.0.0"
   }
 }
