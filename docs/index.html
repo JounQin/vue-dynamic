@@ -5,44 +5,44 @@
   <title>Vue Dynamic Demo</title>
 </head>
 <body>
-<div id="app"></div>
-<script src="//unpkg.com/vue"></script>
-<script src="//unpkg.com/vue-dynamic"></script>
-<!--<script src="../dist/vue-dynamic.js"></script>-->
-<script>
-  const emptyView = {
-    template: '<div>There is nothing now!</div>'
-  }
-
-  new Vue({
-    el: '#app',
-    template: `<div>
-  <dynamic :comps="comps" :emptyView="emptyView"/>
-  <button @click="changeView">changeView</button>
-</div>`,
-    data() {
-      return {
-        comps: null,
-        emptyView
-      }
-    },
-    methods: {
-      changeView() {
-        this.comps = [{
-          template: `<div @click="addCount">I'm dynamic load! {{ count | repeat }}</div>`,
-          data: {
-            count: 0
-          },
-          filters: {
-            repeat: ['count', 'return count.toString().repeat(2)']
-          },
-          methods: {
-            addCount: ['e', `console.log(e.type);this.count++;`]
-          }
-        }]
-      }
+  <div id="app"></div>
+  <script src="//unpkg.com/vue"></script>
+  <script src="//unpkg.com/vue-dynamic"></script>
+  <!-- <script src="../dist/vue-dynamic.js"></script> -->
+  <script>
+    const emptyView = {
+      template: '<div>There is nothing now!</div>'
     }
-  })
-</script>
+
+    new Vue({
+      el: '#app',
+      template: `<div>
+    <dynamic :comps="comps" :emptyView="emptyView"/>
+    <button @click="changeView">changeView</button>
+  </div>`,
+      data() {
+        return {
+          comps: null,
+          emptyView
+        }
+      },
+      methods: {
+        changeView() {
+          this.comps = [{
+            template: `<div @click="addCount">I'm dynamic load! {{ count | repeat }}</div>`,
+            data: {
+              count: 0
+            },
+            filters: {
+              repeat: ['count', 'return count.toString().repeat(2)']
+            },
+            methods: {
+              addCount: ['e', `console.log(e.type);this.count++;`]
+            }
+          }]
+        }
+      }
+    })
+  </script>
 </body>
 </html>
