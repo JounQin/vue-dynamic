@@ -1,6 +1,6 @@
 {
   "name": "vue-dynamic",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Load stringified or normal Vue components dynamically!",
   "keywords": [
     "vue",
@@ -27,8 +27,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "rollup -c --watch",
-    "build": "rollup -c && cross-env ENTRY=dynamic rollup -c",
-    "dist": "npm run build && cross-env NODE_ENV=production npm run build",
+    "build": "rollup -c && cross-env NODE_ENV=production rollup -c",
     "lint": "eslint . --max-warnings=10"
   },
   "eslintConfig": {
@@ -44,7 +43,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --max-warnings=10",
+      "eslint --max-warnings=10 --fix",
       "git add"
     ]
   },

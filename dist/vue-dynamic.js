@@ -1,6 +1,6 @@
 /*!
   * vue-dynamic -- Load stringified or normal Vue components dynamically!
-  * Version 0.1.1
+  * Version 0.2.0
   *
   * Copyright (C) 2016-present JounQin <admin@1stg.me>
   * Released under the MIT license
@@ -8,10 +8,10 @@
   * Github: https://github.com/JounQin/vue-dynamic
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.VueDynamic = factory());
-}(this, (function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (factory((global.VueDynamic = {})));
+}(this, (function (exports) { 'use strict';
 
   var isArray = Array.isArray || (function (arg) { return arg instanceof Array; });
 
@@ -140,20 +140,28 @@
 
   var installed = false;
 
-  var VueDynamic = {
-    install: function install(Vue, options) {
-      if ( options === void 0 ) options = {};
+  var VueDynamic = function (Vue, options) {
+    if ( options === void 0 ) options = {};
 
-      if (installed) { return }
-      installed = true;
-      Vue.component(options.name || 'Dynamic', Dynamic);
-    },
+    if (installed) { return }
+    installed = true;
+    Vue.component(options.name || 'Dynamic', Dynamic);
   };
 
   if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(VueDynamic);
   }
 
-  return VueDynamic;
+  var index = {
+    install: VueDynamic
+  };
+
+  var install = VueDynamic;
+
+  exports.default = index;
+  exports.install = install;
+  exports.Dynamic = Dynamic;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
 })));

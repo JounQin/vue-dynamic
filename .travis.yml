@@ -15,6 +15,6 @@ before_script: greenkeeper-lockfile-update
 
 script:
   - yarn lint
-  - yarn dist
+  - yarn build
 
 after_script: greenkeeper-lockfile-upload

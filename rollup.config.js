@@ -8,25 +8,6 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 
 const isProd = NODE_ENV === 'production'
 
-const entries = {
-  dynamic: {
-    input: 'lib/dynamic.js',
-    output: {
-      file: `dist/dynamic${isProd ? '.min' : ''}.js`,
-      name: 'Dynamic',
-    },
-  },
-  'vue-dynamic': {
-    input: 'lib/index.js',
-    output: {
-      file: `dist/vue-dynamic${isProd ? '.min' : ''}.js`,
-      name: 'VueDynamic',
-    },
-  },
-}
-
-const entry = entries[process.env.ENTRY || 'vue-dynamic']
-
 const plugins = [
   buble({
     objectAssign: 'Object.assign',
@@ -50,9 +31,8 @@ if (isProd) {
 }
 
 export default {
-  input: entry.input,
+  input: 'lib/index.js',
   output: {
-    ...entry.output,
     banner: `/*!
   * vue-dynamic -- Load stringified or normal Vue components dynamically!
   * Version ${version}
@@ -62,7 +42,10 @@ export default {
   *
   * Github: https://github.com/JounQin/vue-dynamic
   */`,
+    exports: 'named',
+    file: `dist/vue-dynamic${isProd ? '.min' : ''}.js`,
     format: 'umd',
+    name: 'VueDynamic',
   },
   plugins,
 }

@@ -4,6 +4,7 @@
 [![Travis](https://img.shields.io/travis/JounQin/vue-dynamic.svg)](https://travis-ci.org/JounQin/vue-dynamic)
 [![David](https://img.shields.io/david/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic)
 [![David](https://img.shields.io/david/dev/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic?type=dev)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 Load stringified or normal Vue components dynamically!
 
@@ -31,7 +32,7 @@ _2.Specific Component_
   <Dynamic :comps="comps" :emptyView="emptyView"/>
 </template>
 <script>
-  import Dynamic from 'vue-dynamic/dynamic' // if we choose to use the first case, you don't need to import this component again
+  import { Dynamic } from 'vue-dynamic' // if we choose to use the first case, you don't need to import this component again
   import NoItem from 'components/NoItem'
 
   export default {
@@ -47,7 +48,6 @@ _2.Specific Component_
     }
   }
 </script>
-
 ```
 
 It needs you to pass two props to `Dynamic`, `emptyView` is required because it will be used when we failed to pass your `comps`.
