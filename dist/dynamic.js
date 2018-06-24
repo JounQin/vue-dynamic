@@ -1,6 +1,6 @@
 /*!
   * vue-dynamic -- Load stringified or normal Vue components dynamically!
-  * Version 0.0.6
+  * Version 0.1.1
   *
   * Copyright (C) 2016-present JounQin <admin@1stg.me>
   * Released under the MIT license
@@ -17,10 +17,10 @@
 
   var isFunction = function (arg) { return typeof arg === 'function'; };
 
-  var isObject = function (arg) { return arg !== null && typeof arg === 'object'; };
+  var isObject = function (arg) { return Object.prototype.toString.call(arg) === '[object Object]'; };
 
   var warn = function (msg) {
-    if (process.env.NODE_ENV === 'development') {
+    {
       // eslint-disable-next-line no-console
       typeof console === 'function' && console.error(msg);
     }
@@ -72,7 +72,7 @@
     var count = 0;
 
     comps.forEach(function (comp, index) {
-      var name = comp.name; if ( name === void 0 ) name = "_" + index;
+      var name = comp.name; if ( name === void 0 ) name = "Dynamic__" + index;
       var template = comp.template;
       var data = comp.data;
       var components = comp.components;
@@ -99,7 +99,7 @@
     return notFirst
       ? wrapComp
       : {
-          name: 'Dynamic--Root',
+          name: 'Dynamic__Root',
           template: count === 1 ? wrapTemp : ("<div>" + wrapTemp + "</div>"),
           components: wrapComp,
         }

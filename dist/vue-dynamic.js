@@ -1,6 +1,6 @@
 /*!
   * vue-dynamic -- Load stringified or normal Vue components dynamically!
-  * Version 0.0.6
+  * Version 0.1.1
   *
   * Copyright (C) 2016-present JounQin <admin@1stg.me>
   * Released under the MIT license
@@ -20,7 +20,7 @@
   var isObject = function (arg) { return Object.prototype.toString.call(arg) === '[object Object]'; };
 
   var warn = function (msg) {
-    if (process.env.NODE_ENV === 'development') {
+    {
       // eslint-disable-next-line no-console
       typeof console === 'function' && console.error(msg);
     }

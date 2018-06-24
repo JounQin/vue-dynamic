@@ -1,9 +1,12 @@
 import buble from 'rollup-plugin-buble'
+import replace from 'rollup-plugin-replace'
 import { uglify } from 'rollup-plugin-uglify'
 
 import { version } from './package.json'
 
-const isProd = process.env.NODE_ENV === 'production'
+const NODE_ENV = process.env.NODE_ENV || 'development'
+
+const isProd = NODE_ENV === 'production'
 
 const entries = {
   dynamic: {
@@ -30,6 +33,9 @@ const plugins = [
     transforms: {
       dangerousForOf: true,
     },
+  }),
+  replace({
+    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
   }),
 ]
 
