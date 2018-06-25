@@ -1,6 +1,6 @@
 /*!
   * vue-dynamic -- Load stringified or normal Vue components dynamically!
-  * Version 0.2.0
+  * Version 0.2.1
   *
   * Copyright (C) 2016-present JounQin <admin@1stg.me>
   * Released under the MIT license
@@ -138,27 +138,19 @@
     },
   };
 
-  var installed = false;
-
   var VueDynamic = function (Vue, options) {
-    if ( options === void 0 ) options = {};
+      if ( options === void 0 ) options = {};
 
-    if (installed) { return }
-    installed = true;
-    Vue.component(options.name || 'Dynamic', Dynamic);
+      return Vue.component(options.name || 'Dynamic', Dynamic);
   };
 
   if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(VueDynamic);
   }
 
-  var index = {
-    install: VueDynamic
-  };
-
   var install = VueDynamic;
 
-  exports.default = index;
+  exports.default = VueDynamic;
   exports.install = install;
   exports.Dynamic = Dynamic;
 

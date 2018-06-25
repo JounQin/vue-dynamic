@@ -1,6 +1,6 @@
 {
   "name": "vue-dynamic",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Load stringified or normal Vue components dynamically!",
   "keywords": [
     "vue",
