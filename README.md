@@ -8,6 +8,10 @@
 
 Load stringified or normal Vue components dynamically!
 
+## ChangeLog
+
+0.3.0: Custom Events on `dynamic` component is supported, see #23 for more details
+
 ## Notice
 
 This module is just a simple wrapper of Vue `component`, and you should only use it to use stringified static components.
@@ -16,37 +20,37 @@ This module is just a simple wrapper of Vue `component`, and you should only use
 
 _1.Global Component_
 
-``` js
-import Vue from 'vue'   // make sure to use 'vue/dist/vue.js' because we will use template
+```js
+import Vue from 'vue' // make sure to use 'vue/dist/vue.js' because we will use template
 import VueDynamic from 'vue-dynamic'
 
-Vue.use(VueDynamic, {name: 'dynamic'})  // you can custom the global component name and it's default name is 'dynamic'
+Vue.use(VueDynamic, { name: 'dynamic' }) // you can custom the global component name and it's default name is 'dynamic'
 ```
 
 Then it will be same with the next case:
 
 _2.Specific Component_
 
-``` vue
+```vue
 <template>
-  <Dynamic :comps="comps" :emptyView="emptyView"/>
+  <Dynamic :comps="comps" :emptyView="emptyView" />
 </template>
 <script>
-  import { Dynamic } from 'vue-dynamic' // if we choose to use the first case, you don't need to import this component again
-  import NoItem from 'components/NoItem'
+import { Dynamic } from 'vue-dynamic' // if we choose to use the first case, you don't need to import this component again
+import NoItem from 'components/NoItem'
 
-  export default {
-    name: 'VueDynamic',
-    data() {
-      return {
-        comps: this.$route.meta.data,
-        emptyView: NoItem
-      }
-    },
-    components: {
-      Dynamic
+export default {
+  name: 'VueDynamic',
+  data() {
+    return {
+      comps: this.$route.meta.data,
+      emptyView: NoItem,
     }
-  }
+  },
+  components: {
+    Dynamic,
+  },
+}
 </script>
 ```
 
@@ -56,74 +60,80 @@ It needs you to pass two props to `Dynamic`, `emptyView` is required because it 
 
 There is a deadly simple example:
 
-``` js
-[{
-  template: `<div>{{ msg }}</div>`,
-  data: {
-    msg: `It's the first dynamic template!`
-  }
-}, {
-  template: `<div>{{ reverse ? $options.filters.reverse(msg) : msg }}
-<button class="btn btn-primary" @click="reverseMsg">Try to reverse me!</button></div>`,
-  data: {
-    msg: `It's the second dynamic template!`,
-    reverse: false
+```js
+;[
+  {
+    template: `<div>{{ msg }}</div>`,
+    data: {
+      msg: `It's the first dynamic template!`,
+    },
   },
-  methods: {
-    reverseMsg: 'this.reverse = !this.reverse'
-  }
-}, {
-  template: `<div>More Magic Here!</div>`
-}]
+  {
+    template: `<div>{{ reverse ? $options.filters.reverse(msg) : msg }}
+<button class="btn btn-primary" @click="reverseMsg">Try to reverse me!</button></div>`,
+    data: {
+      msg: `It's the second dynamic template!`,
+      reverse: false,
+    },
+    methods: {
+      reverseMsg: 'this.reverse = !this.reverse',
+    },
+  },
+  {
+    template: `<div>More Magic Here!</div>`,
+  },
+]
 ```
 
 As you see, the value of `methods` object is a string (or array, them will be applied to `Function` constructor) what means you can store it in your database! So that it is possible to define customer defined page component separately and link them together at once!
 
 It's very useful to build a html5 page like [eqxiu.com](http://www.eqxiu.com/).
 
-__*And nested components can be used! Here is a example:*__
+**_And nested components can be used! Here is a example:_**
 
-``` js
-[{
-  template: '<div><component1/><component2/></div>',
-  components: {
-    component1: {
-      template: '<div @click="click">{{ msg }}</div>',
-      data: {
-        msg: 'Inner Messgae'
+```js
+;[
+  {
+    template: '<div><component1/><component2/></div>',
+    components: {
+      component1: {
+        template: '<div @click="click">{{ msg }}</div>',
+        data: {
+          msg: 'Inner Messgae',
+        },
+        methods: {
+          click: 'alert("abc")',
+        },
       },
-      methods: {
-        click: 'alert("abc")'
-      }
-    },
-    component2: {
-      template: '<div @click="click">{{ msg }}<component3/></div>',
-      data: {
-        msg: 'Inn1222er Messgae'
-      },
-      methods: {
-        click: 'alert("ab11c")'
-      },
-      components: {
-        component3: {
-          template: `<button @click="reverse">{{ msg }}</button>`,
-          data: {
-            msg: `I'm the third one!`
+      component2: {
+        template: '<div @click="click">{{ msg }}<component3/></div>',
+        data: {
+          msg: 'Inn1222er Messgae',
+        },
+        methods: {
+          click: 'alert("ab11c")',
+        },
+        components: {
+          component3: {
+            template: `<button @click="reverse">{{ msg }}</button>`,
+            data: {
+              msg: `I'm the third one!`,
+            },
+            methods: {
+              reverse: `this.msg = this.msg.split('').reverse().join('')`,
+            },
           },
-          methods: {
-            reverse: `this.msg = this.msg.split('').reverse().join('')`
-          }
-        }
-      }
-    }
-  }
-}]
+        },
+      },
+    },
+  },
+]
 ```
 
 The nested components can also be an array and use a name option in component which is used in you template.
 
 ---
 
-__Of course, if you are passing a normal Vue components, it will also work.__
+**Of course, if you are passing a normal Vue components, it will also work.**
 
-*Hope it will be useful to you, and if it occurs any problem, please notice me through [issue](https://github.com/JounQin/vue-dynamic/issues).*
+_Hope it will be useful to you, and if it occurs any problem, please notice me through [issue](https://github.com/JounQin/vue-dynamic/issues)._

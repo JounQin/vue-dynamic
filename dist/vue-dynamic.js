@@ -1,6 +1,6 @@
 /*!
   * vue-dynamic -- Load stringified or normal Vue components dynamically!
-  * Version 0.2.1
+  * Version 0.3.0
   *
   * Copyright (C) 2016-present JounQin <admin@1stg.me>
   * Released under the MIT license
@@ -79,17 +79,23 @@
 
       if (!template) { return nonMsg('template') }
 
-      wrapTemp += "<" + name + "/>";
+      wrapTemp += "<" + name + (notFirst ? '' : ' v-on="$parent.$listeners"') + " />";
       var component = (wrapComp[name] = { template: template });
 
       if (
         !generateField(comp, component, 'filters') ||
         !generateField(comp, component, 'methods')
-      )
-        { return }
+      ) {
+        return
+      }
 
-      if (data) { component.data = isFunction(data) ? data : function () { return (Object.assign({}, data)); }; }
-      if (components) { component.components = buildComponent(components, true); }
+      if (data) {
+        component.data = isFunction(data) ? data : function () { return (Object.assign({}, data)); };
+      }
+
+      if (components) {
+        component.components = buildComponent(components, true);
+      }
 
       count++;
     });
@@ -107,7 +113,7 @@
 
   var Dynamic = {
     name: 'vue-dynamic',
-    template: "<comment :is=\"view\"/>",
+    template: "<component :is=\"view\" />",
     props: {
       comps: {
         validator: function (value) { return !value || isArray(value) || isObject(value); },
