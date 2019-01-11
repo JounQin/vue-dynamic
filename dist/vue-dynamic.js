@@ -10,8 +10,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.VueDynamic = {})));
-}(this, (function (exports) { 'use strict';
+  (global = global || self, factory(global.VueDynamic = {}));
+}(this, function (exports) { 'use strict';
 
   var isArray = Array.isArray || (function (arg) { return arg instanceof Array; });
 
@@ -162,4 +162,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));

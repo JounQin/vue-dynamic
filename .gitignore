@@ -1,11 +1,2 @@
-# IntelliJ project files
-.idea
-*.iml
-out
-gen
-
-# Logs
-logs
-*.log
-npm-debug.log*
 node_modules
+*.log
