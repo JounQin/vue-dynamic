@@ -1,0 +1,5 @@
+checks:
+  - name: build-size-watcher
+    options:
+      files:
+        - path: lib/*.*

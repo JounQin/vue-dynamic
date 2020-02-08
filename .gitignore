@@ -1,2 +1,4 @@
-node_modules
+.*cache
 *.log
+lib
+node_modules

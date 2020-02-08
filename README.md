@@ -1,20 +1,32 @@
 # vue-dynamic
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/JounQin/vue-dynamic.svg)](https://greenkeeper.io/)
-[![Travis](https://img.shields.io/travis/JounQin/vue-dynamic.svg)](https://travis-ci.org/JounQin/vue-dynamic)
+[![GitHub Actions](https://github.com/JounQin/vue-dynamic/workflows/Node%20CI/badge.svg)](https://github.com/JounQin/vue-dynamic/actions?query=workflow%3A%22Node+CI%22)
+[![Codacy Grade](https://img.shields.io/codacy/grade/a8dfdfc423974b6e83f81215aee07e7e)](https://www.codacy.com/gh/JounQin/vue-dynamic)
+[![npm](https://img.shields.io/npm/v/vue-dynamic.svg)](https://www.npmjs.com/package/vue-dynamic)
+[![GitHub Release](https://img.shields.io/github/release/JounQin/vue-dynamic)](https://github.com/JounQin/vue-dynamic/releases)
+
+[![David Peer](https://img.shields.io/david/peer/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic?type=peer)
 [![David](https://img.shields.io/david/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic)
-[![David](https://img.shields.io/david/dev/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic?type=dev)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![David Dev](https://img.shields.io/david/dev/JounQin/vue-dynamic.svg)](https://david-dm.org/JounQin/vue-dynamic?type=dev)
+
+[![Conventional Commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![codechecks.io](https://raw.githubusercontent.com/codechecks/docs/master/images/badges/badge-default.svg?sanitize=true)](https://codechecks.io)
 
 Load stringified or normal Vue components dynamically!
 
-## ChangeLog
+## TOC <!-- omit in toc -->
 
-0.3.0: Custom Events on `dynamic` component is supported, see #23 for more details
+- [Notice](#notice)
+- [Usage](#usage)
+- [Changelog](#changelog)
+- [License](#license)
 
 ## Notice
 
-This module is just a simple wrapper of Vue `component`, and you should only use it to use stringified static components.
+This module is just a simple wrapper of Vue's built-in `component`, and you should only use it to use stringified static components.
 
 ## Usage
 
@@ -99,7 +111,7 @@ It's very useful to build a html5 page like [eqxiu.com](http://www.eqxiu.com/).
       component1: {
         template: '<div @click="click">{{ msg }}</div>',
         data: {
-          msg: 'Inner Messgae',
+          msg: 'Inner Message',
         },
         methods: {
           click: 'alert("abc")',
@@ -108,7 +120,7 @@ It's very useful to build a html5 page like [eqxiu.com](http://www.eqxiu.com/).
       component2: {
         template: '<div @click="click">{{ msg }}<component3/></div>',
         data: {
-          msg: 'Inn1222er Messgae',
+          msg: 'Inn1222er Message',
         },
         methods: {
           click: 'alert("ab11c")',
@@ -132,8 +144,14 @@ It's very useful to build a html5 page like [eqxiu.com](http://www.eqxiu.com/).
 
 The nested components can also be an array and use a name option in component which is used in you template.
 
----
+## Changelog
 
-**Of course, if you are passing a normal Vue components, it will also work.**
+Detailed changes for each release are documented in [CHANGELOG.md](./CHANGELOG.md).
 
-_Hope it will be useful to you, and if it occurs any problem, please notice me through [issue](https://github.com/JounQin/vue-dynamic/issues)._
+## License
+
+[MIT][] © [JounQin][]@[1stG.me][]
+
+[1stg.me]: https://www.1stg.me
+[jounqin]: https://GitHub.com/JounQin
+[mit]: http://opensource.org/licenses/MIT
